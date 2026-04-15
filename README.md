@@ -267,7 +267,7 @@ Received gossip from all 8 clients. Terminating.
 
 ## Contributors
 
-| Name | Roll Number |
-|------|-------------|
-|      |             |
-|      |             |
+|       Name     | Roll Number |
+|----------------|-------------|
+| Aaditya Bansal |  B23CS1083  |
+| Saher Dev      |  B23CS1059  |
