@@ -39,9 +39,9 @@ namespace omnetpp {
 template<typename T, typename A>
 void doParsimPacking(omnetpp::cCommBuffer *buffer, const std::vector<T,A>& v)
 {
-    int n = v.size();
+    int n=v.size();
     doParsimPacking(buffer, n);
-    for (int i = 0; i < n; i++)
+    for (int i=0; i<n; i++)
         doParsimPacking(buffer, v[i]);
 }
 
@@ -51,7 +51,7 @@ void doParsimUnpacking(omnetpp::cCommBuffer *buffer, std::vector<T,A>& v)
     int n;
     doParsimUnpacking(buffer, n);
     v.resize(n);
-    for (int i = 0; i < n; i++)
+    for (int i=0; i<n; i++)
         doParsimUnpacking(buffer, v[i]);
 }
 
@@ -60,7 +60,7 @@ template<typename T, typename A>
 void doParsimPacking(omnetpp::cCommBuffer *buffer, const std::list<T,A>& l)
 {
     doParsimPacking(buffer, (int)l.size());
-    for (typename std::list<T,A>::const_iterator it = l.begin(); it != l.end(); ++it)
+    for (typename std::list<T,A>::const_iterator it=l.begin(); it!=l.end(); ++it)
         doParsimPacking(buffer, (T&)*it);
 }
 
@@ -69,7 +69,7 @@ void doParsimUnpacking(omnetpp::cCommBuffer *buffer, std::list<T,A>& l)
 {
     int n;
     doParsimUnpacking(buffer, n);
-    for (int i = 0; i < n; i++) {
+    for (int i=0; i<n; i++) {
         l.push_back(T());
         doParsimUnpacking(buffer, l.back());
     }
@@ -80,7 +80,7 @@ template<typename T, typename Tr, typename A>
 void doParsimPacking(omnetpp::cCommBuffer *buffer, const std::set<T,Tr,A>& s)
 {
     doParsimPacking(buffer, (int)s.size());
-    for (typename std::set<T,Tr,A>::const_iterator it = s.begin(); it != s.end(); ++it)
+    for (typename std::set<T,Tr,A>::const_iterator it=s.begin(); it!=s.end(); ++it)
         doParsimPacking(buffer, *it);
 }
 
@@ -89,7 +89,7 @@ void doParsimUnpacking(omnetpp::cCommBuffer *buffer, std::set<T,Tr,A>& s)
 {
     int n;
     doParsimUnpacking(buffer, n);
-    for (int i = 0; i < n; i++) {
+    for (int i=0; i<n; i++) {
         T x;
         doParsimUnpacking(buffer, x);
         s.insert(x);
@@ -101,7 +101,7 @@ template<typename K, typename V, typename Tr, typename A>
 void doParsimPacking(omnetpp::cCommBuffer *buffer, const std::map<K,V,Tr,A>& m)
 {
     doParsimPacking(buffer, (int)m.size());
-    for (typename std::map<K,V,Tr,A>::const_iterator it = m.begin(); it != m.end(); ++it) {
+    for (typename std::map<K,V,Tr,A>::const_iterator it=m.begin(); it!=m.end(); ++it) {
         doParsimPacking(buffer, it->first);
         doParsimPacking(buffer, it->second);
     }
@@ -112,11 +112,11 @@ void doParsimUnpacking(omnetpp::cCommBuffer *buffer, std::map<K,V,Tr,A>& m)
 {
     int n;
     doParsimUnpacking(buffer, n);
-    for (int i = 0; i < n; i++) {
+    for (int i=0; i<n; i++) {
         K k; V v;
         doParsimUnpacking(buffer, k);
         doParsimUnpacking(buffer, v);
-        m[k] = v;
+        m[k]=v;
     }
 }
 
@@ -124,14 +124,14 @@ void doParsimUnpacking(omnetpp::cCommBuffer *buffer, std::map<K,V,Tr,A>& m)
 template<typename T>
 void doParsimArrayPacking(omnetpp::cCommBuffer *b, const T *t, int n)
 {
-    for (int i = 0; i < n; i++)
+    for (int i=0; i<n; i++)
         doParsimPacking(b, t[i]);
 }
 
 template<typename T>
 void doParsimArrayUnpacking(omnetpp::cCommBuffer *b, T *t, int n)
 {
-    for (int i = 0; i < n; i++)
+    for (int i=0; i<n; i++)
         doParsimUnpacking(b, t[i]);
 }
 
@@ -168,7 +168,7 @@ SubtaskMsg::~SubtaskMsg()
 
 SubtaskMsg& SubtaskMsg::operator=(const SubtaskMsg& other)
 {
-    if (this == &other) return *this;
+    if (this==&other) return *this;
     ::omnetpp::cMessage::operator=(other);
     copy(other);
     return *this;
@@ -176,17 +176,17 @@ SubtaskMsg& SubtaskMsg::operator=(const SubtaskMsg& other)
 
 void SubtaskMsg::copy(const SubtaskMsg& other)
 {
-    this->subtaskId = other.subtaskId;
-    this->initiatorId = other.initiatorId;
-    this->targetClientId = other.targetClientId;
-    this->sourceClientId = other.sourceClientId;
+    this->subtaskId=other.subtaskId;
+    this->initiatorId=other.initiatorId;
+    this->targetClientId=other.targetClientId;
+    this->sourceClientId=other.sourceClientId;
     delete [] this->elements;
-    this->elements = (other.elements_arraysize==0) ? nullptr : new int[other.elements_arraysize];
-    elements_arraysize = other.elements_arraysize;
-    for (size_t i = 0; i < elements_arraysize; i++) {
-        this->elements[i] = other.elements[i];
+    this->elements=(other.elements_arraysize==0) ? nullptr : new int[other.elements_arraysize];
+    elements_arraysize=other.elements_arraysize;
+    for (size_t i=0; i<elements_arraysize; i++) {
+        this->elements[i]=other.elements[i];
     }
-    this->hopCount = other.hopCount;
+    this->hopCount=other.hopCount;
 }
 
 void SubtaskMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -210,10 +210,10 @@ void SubtaskMsg::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->sourceClientId);
     delete [] this->elements;
     b->unpack(elements_arraysize);
-    if (elements_arraysize == 0) {
-        this->elements = nullptr;
+    if (elements_arraysize==0) {
+        this->elements=nullptr;
     } else {
-        this->elements = new int[elements_arraysize];
+        this->elements=new int[elements_arraysize];
         doParsimArrayUnpacking(b,this->elements,elements_arraysize);
     }
     doParsimUnpacking(b,this->hopCount);
@@ -226,7 +226,7 @@ int SubtaskMsg::getSubtaskId() const
 
 void SubtaskMsg::setSubtaskId(int subtaskId)
 {
-    this->subtaskId = subtaskId;
+    this->subtaskId=subtaskId;
 }
 
 int SubtaskMsg::getInitiatorId() const
@@ -236,7 +236,7 @@ int SubtaskMsg::getInitiatorId() const
 
 void SubtaskMsg::setInitiatorId(int initiatorId)
 {
-    this->initiatorId = initiatorId;
+    this->initiatorId=initiatorId;
 }
 
 int SubtaskMsg::getTargetClientId() const
@@ -246,7 +246,7 @@ int SubtaskMsg::getTargetClientId() const
 
 void SubtaskMsg::setTargetClientId(int targetClientId)
 {
-    this->targetClientId = targetClientId;
+    this->targetClientId=targetClientId;
 }
 
 int SubtaskMsg::getSourceClientId() const
@@ -256,7 +256,7 @@ int SubtaskMsg::getSourceClientId() const
 
 void SubtaskMsg::setSourceClientId(int sourceClientId)
 {
-    this->sourceClientId = sourceClientId;
+    this->sourceClientId=sourceClientId;
 }
 
 size_t SubtaskMsg::getElementsArraySize() const
@@ -266,43 +266,43 @@ size_t SubtaskMsg::getElementsArraySize() const
 
 int SubtaskMsg::getElements(size_t k) const
 {
-    if (k >= elements_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)elements_arraysize, (unsigned long)k);
+    if (k>=elements_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)elements_arraysize, (unsigned long)k);
     return this->elements[k];
 }
 
 void SubtaskMsg::setElementsArraySize(size_t newSize)
 {
-    int *elements2 = (newSize==0) ? nullptr : new int[newSize];
-    size_t minSize = elements_arraysize < newSize ? elements_arraysize : newSize;
-    for (size_t i = 0; i < minSize; i++)
-        elements2[i] = this->elements[i];
-    for (size_t i = minSize; i < newSize; i++)
-        elements2[i] = 0;
+    int *elements2=(newSize==0) ? nullptr : new int[newSize];
+    size_t minSize=elements_arraysize<newSize ? elements_arraysize : newSize;
+    for (size_t i=0; i<minSize; i++)
+        elements2[i]=this->elements[i];
+    for (size_t i=minSize; i<newSize; i++)
+        elements2[i]=0;
     delete [] this->elements;
-    this->elements = elements2;
-    elements_arraysize = newSize;
+    this->elements=elements2;
+    elements_arraysize=newSize;
 }
 
 void SubtaskMsg::setElements(size_t k, int elements)
 {
-    if (k >= elements_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)elements_arraysize, (unsigned long)k);
-    this->elements[k] = elements;
+    if (k>=elements_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)elements_arraysize, (unsigned long)k);
+    this->elements[k]=elements;
 }
 
 void SubtaskMsg::insertElements(size_t k, int elements)
 {
-    if (k > elements_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)elements_arraysize, (unsigned long)k);
-    size_t newSize = elements_arraysize + 1;
-    int *elements2 = new int[newSize];
+    if (k>elements_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)elements_arraysize, (unsigned long)k);
+    size_t newSize=elements_arraysize + 1;
+    int *elements2=new int[newSize];
     size_t i;
-    for (i = 0; i < k; i++)
-        elements2[i] = this->elements[i];
-    elements2[k] = elements;
-    for (i = k + 1; i < newSize; i++)
-        elements2[i] = this->elements[i-1];
+    for (i=0; i<k; i++)
+        elements2[i]=this->elements[i];
+    elements2[k]=elements;
+    for (i=k + 1; i<newSize; i++)
+        elements2[i]=this->elements[i-1];
     delete [] this->elements;
-    this->elements = elements2;
-    elements_arraysize = newSize;
+    this->elements=elements2;
+    elements_arraysize=newSize;
 }
 
 void SubtaskMsg::appendElements(int elements)
@@ -312,17 +312,17 @@ void SubtaskMsg::appendElements(int elements)
 
 void SubtaskMsg::eraseElements(size_t k)
 {
-    if (k >= elements_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)elements_arraysize, (unsigned long)k);
-    size_t newSize = elements_arraysize - 1;
-    int *elements2 = (newSize == 0) ? nullptr : new int[newSize];
+    if (k>=elements_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)elements_arraysize, (unsigned long)k);
+    size_t newSize=elements_arraysize - 1;
+    int *elements2=(newSize==0) ? nullptr : new int[newSize];
     size_t i;
-    for (i = 0; i < k; i++)
-        elements2[i] = this->elements[i];
-    for (i = k; i < newSize; i++)
-        elements2[i] = this->elements[i+1];
+    for (i=0; i<k; i++)
+        elements2[i]=this->elements[i];
+    for (i=k; i<newSize; i++)
+        elements2[i]=this->elements[i+1];
     delete [] this->elements;
-    this->elements = elements2;
-    elements_arraysize = newSize;
+    this->elements=elements2;
+    elements_arraysize=newSize;
 }
 
 int SubtaskMsg::getHopCount() const
@@ -332,7 +332,7 @@ int SubtaskMsg::getHopCount() const
 
 void SubtaskMsg::setHopCount(int hopCount)
 {
-    this->hopCount = hopCount;
+    this->hopCount=hopCount;
 }
 
 class SubtaskMsgDescriptor : public omnetpp::cClassDescriptor
@@ -379,7 +379,7 @@ Register_ClassDescriptor(SubtaskMsgDescriptor)
 
 SubtaskMsgDescriptor::SubtaskMsgDescriptor() : omnetpp::cClassDescriptor(omnetpp::opp_typename(typeid(SubtaskMsg)), "omnetpp::cMessage")
 {
-    propertyNames = nullptr;
+    propertyNames=nullptr;
 }
 
 SubtaskMsgDescriptor::~SubtaskMsgDescriptor()
@@ -395,35 +395,35 @@ bool SubtaskMsgDescriptor::doesSupport(omnetpp::cObject *obj) const
 const char **SubtaskMsgDescriptor::getPropertyNames() const
 {
     if (!propertyNames) {
-        static const char *names[] = {  nullptr };
-        omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
-        const char **baseNames = base ? base->getPropertyNames() : nullptr;
-        propertyNames = mergeLists(baseNames, names);
+        static const char *names[]={  nullptr };
+        omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
+        const char **baseNames=base ? base->getPropertyNames() : nullptr;
+        propertyNames=mergeLists(baseNames, names);
     }
     return propertyNames;
 }
 
 const char *SubtaskMsgDescriptor::getProperty(const char *propertyName) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     return base ? base->getProperty(propertyName) : nullptr;
 }
 
 int SubtaskMsgDescriptor::getFieldCount() const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     return base ? 6+base->getFieldCount() : 6;
 }
 
 unsigned int SubtaskMsgDescriptor::getFieldTypeFlags(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldTypeFlags(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    static unsigned int fieldTypeFlags[] = {
+    static unsigned int fieldTypeFlags[]={
         FD_ISEDITABLE,    // FIELD_subtaskId
         FD_ISEDITABLE,    // FIELD_initiatorId
         FD_ISEDITABLE,    // FIELD_targetClientId
@@ -431,18 +431,18 @@ unsigned int SubtaskMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISARRAY | FD_ISEDITABLE | FD_ISRESIZABLE,    // FIELD_elements
         FD_ISEDITABLE,    // FIELD_hopCount
     };
-    return (field >= 0 && field < 6) ? fieldTypeFlags[field] : 0;
+    return (field>=0&&field<6) ? fieldTypeFlags[field] : 0;
 }
 
 const char *SubtaskMsgDescriptor::getFieldName(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldName(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    static const char *fieldNames[] = {
+    static const char *fieldNames[]={
         "subtaskId",
         "initiatorId",
         "targetClientId",
@@ -450,31 +450,31 @@ const char *SubtaskMsgDescriptor::getFieldName(int field) const
         "elements",
         "hopCount",
     };
-    return (field >= 0 && field < 6) ? fieldNames[field] : nullptr;
+    return (field>=0&&field<6) ? fieldNames[field] : nullptr;
 }
 
 int SubtaskMsgDescriptor::findField(const char *fieldName) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
-    int baseIndex = base ? base->getFieldCount() : 0;
-    if (strcmp(fieldName, "subtaskId") == 0) return baseIndex + 0;
-    if (strcmp(fieldName, "initiatorId") == 0) return baseIndex + 1;
-    if (strcmp(fieldName, "targetClientId") == 0) return baseIndex + 2;
-    if (strcmp(fieldName, "sourceClientId") == 0) return baseIndex + 3;
-    if (strcmp(fieldName, "elements") == 0) return baseIndex + 4;
-    if (strcmp(fieldName, "hopCount") == 0) return baseIndex + 5;
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
+    int baseIndex=base ? base->getFieldCount() : 0;
+    if (strcmp(fieldName, "subtaskId")==0) return baseIndex + 0;
+    if (strcmp(fieldName, "initiatorId")==0) return baseIndex + 1;
+    if (strcmp(fieldName, "targetClientId")==0) return baseIndex + 2;
+    if (strcmp(fieldName, "sourceClientId")==0) return baseIndex + 3;
+    if (strcmp(fieldName, "elements")==0) return baseIndex + 4;
+    if (strcmp(fieldName, "hopCount")==0) return baseIndex + 5;
     return base ? base->findField(fieldName) : -1;
 }
 
 const char *SubtaskMsgDescriptor::getFieldTypeString(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldTypeString(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    static const char *fieldTypeStrings[] = {
+    static const char *fieldTypeStrings[]={
         "int",    // FIELD_subtaskId
         "int",    // FIELD_initiatorId
         "int",    // FIELD_targetClientId
@@ -482,16 +482,16 @@ const char *SubtaskMsgDescriptor::getFieldTypeString(int field) const
         "int",    // FIELD_elements
         "int",    // FIELD_hopCount
     };
-    return (field >= 0 && field < 6) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0&&field<6) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **SubtaskMsgDescriptor::getFieldPropertyNames(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldPropertyNames(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
     switch (field) {
         default: return nullptr;
@@ -500,11 +500,11 @@ const char **SubtaskMsgDescriptor::getFieldPropertyNames(int field) const
 
 const char *SubtaskMsgDescriptor::getFieldProperty(int field, const char *propertyName) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldProperty(field, propertyName);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
     switch (field) {
         default: return nullptr;
@@ -513,13 +513,13 @@ const char *SubtaskMsgDescriptor::getFieldProperty(int field, const char *proper
 
 int SubtaskMsgDescriptor::getFieldArraySize(omnetpp::any_ptr object, int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldArraySize(object, field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskMsg *pp = omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
+    SubtaskMsg *pp=omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
     switch (field) {
         case FIELD_elements: return pp->getElementsArraySize();
         default: return 0;
@@ -528,15 +528,15 @@ int SubtaskMsgDescriptor::getFieldArraySize(omnetpp::any_ptr object, int field) 
 
 void SubtaskMsgDescriptor::setFieldArraySize(omnetpp::any_ptr object, int field, int size) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldArraySize(object, field, size);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskMsg *pp = omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
+    SubtaskMsg *pp=omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
     switch (field) {
         case FIELD_elements: pp->setElementsArraySize(size); break;
         default: throw omnetpp::cRuntimeError("Cannot set array size of field %d of class 'SubtaskMsg'", field);
@@ -545,13 +545,13 @@ void SubtaskMsgDescriptor::setFieldArraySize(omnetpp::any_ptr object, int field,
 
 const char *SubtaskMsgDescriptor::getFieldDynamicTypeString(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldDynamicTypeString(object,field,i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskMsg *pp = omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
+    SubtaskMsg *pp=omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
     switch (field) {
         default: return nullptr;
     }
@@ -559,13 +559,13 @@ const char *SubtaskMsgDescriptor::getFieldDynamicTypeString(omnetpp::any_ptr obj
 
 std::string SubtaskMsgDescriptor::getFieldValueAsString(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldValueAsString(object,field,i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskMsg *pp = omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
+    SubtaskMsg *pp=omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
     switch (field) {
         case FIELD_subtaskId: return long2string(pp->getSubtaskId());
         case FIELD_initiatorId: return long2string(pp->getInitiatorId());
@@ -579,15 +579,15 @@ std::string SubtaskMsgDescriptor::getFieldValueAsString(omnetpp::any_ptr object,
 
 void SubtaskMsgDescriptor::setFieldValueAsString(omnetpp::any_ptr object, int field, int i, const char *value) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldValueAsString(object, field, i, value);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskMsg *pp = omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
+    SubtaskMsg *pp=omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
     switch (field) {
         case FIELD_subtaskId: pp->setSubtaskId(string2long(value)); break;
         case FIELD_initiatorId: pp->setInitiatorId(string2long(value)); break;
@@ -601,13 +601,13 @@ void SubtaskMsgDescriptor::setFieldValueAsString(omnetpp::any_ptr object, int fi
 
 omnetpp::cValue SubtaskMsgDescriptor::getFieldValue(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldValue(object,field,i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskMsg *pp = omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
+    SubtaskMsg *pp=omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
     switch (field) {
         case FIELD_subtaskId: return pp->getSubtaskId();
         case FIELD_initiatorId: return pp->getInitiatorId();
@@ -621,15 +621,15 @@ omnetpp::cValue SubtaskMsgDescriptor::getFieldValue(omnetpp::any_ptr object, int
 
 void SubtaskMsgDescriptor::setFieldValue(omnetpp::any_ptr object, int field, int i, const omnetpp::cValue& value) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldValue(object, field, i, value);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskMsg *pp = omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
+    SubtaskMsg *pp=omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
     switch (field) {
         case FIELD_subtaskId: pp->setSubtaskId(omnetpp::checked_int_cast<int>(value.intValue())); break;
         case FIELD_initiatorId: pp->setInitiatorId(omnetpp::checked_int_cast<int>(value.intValue())); break;
@@ -643,11 +643,11 @@ void SubtaskMsgDescriptor::setFieldValue(omnetpp::any_ptr object, int field, int
 
 const char *SubtaskMsgDescriptor::getFieldStructName(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldStructName(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
     switch (field) {
         default: return nullptr;
@@ -656,13 +656,13 @@ const char *SubtaskMsgDescriptor::getFieldStructName(int field) const
 
 omnetpp::any_ptr SubtaskMsgDescriptor::getFieldStructValuePointer(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldStructValuePointer(object, field, i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskMsg *pp = omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
+    SubtaskMsg *pp=omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
     switch (field) {
         default: return omnetpp::any_ptr(nullptr);
     }
@@ -670,15 +670,15 @@ omnetpp::any_ptr SubtaskMsgDescriptor::getFieldStructValuePointer(omnetpp::any_p
 
 void SubtaskMsgDescriptor::setFieldStructValuePointer(omnetpp::any_ptr object, int field, int i, omnetpp::any_ptr ptr) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldStructValuePointer(object, field, i, ptr);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskMsg *pp = omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
+    SubtaskMsg *pp=omnetpp::fromAnyPtr<SubtaskMsg>(object); (void)pp;
     switch (field) {
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'SubtaskMsg'", field);
     }
@@ -701,7 +701,7 @@ SubtaskResultMsg::~SubtaskResultMsg()
 
 SubtaskResultMsg& SubtaskResultMsg::operator=(const SubtaskResultMsg& other)
 {
-    if (this == &other) return *this;
+    if (this==&other) return *this;
     ::omnetpp::cMessage::operator=(other);
     copy(other);
     return *this;
@@ -709,12 +709,12 @@ SubtaskResultMsg& SubtaskResultMsg::operator=(const SubtaskResultMsg& other)
 
 void SubtaskResultMsg::copy(const SubtaskResultMsg& other)
 {
-    this->subtaskId = other.subtaskId;
-    this->initiatorId = other.initiatorId;
-    this->targetClientId = other.targetClientId;
-    this->sourceClientId = other.sourceClientId;
-    this->maxValue = other.maxValue;
-    this->hopCount = other.hopCount;
+    this->subtaskId=other.subtaskId;
+    this->initiatorId=other.initiatorId;
+    this->targetClientId=other.targetClientId;
+    this->sourceClientId=other.sourceClientId;
+    this->maxValue=other.maxValue;
+    this->hopCount=other.hopCount;
 }
 
 void SubtaskResultMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -746,7 +746,7 @@ int SubtaskResultMsg::getSubtaskId() const
 
 void SubtaskResultMsg::setSubtaskId(int subtaskId)
 {
-    this->subtaskId = subtaskId;
+    this->subtaskId=subtaskId;
 }
 
 int SubtaskResultMsg::getInitiatorId() const
@@ -756,7 +756,7 @@ int SubtaskResultMsg::getInitiatorId() const
 
 void SubtaskResultMsg::setInitiatorId(int initiatorId)
 {
-    this->initiatorId = initiatorId;
+    this->initiatorId=initiatorId;
 }
 
 int SubtaskResultMsg::getTargetClientId() const
@@ -766,7 +766,7 @@ int SubtaskResultMsg::getTargetClientId() const
 
 void SubtaskResultMsg::setTargetClientId(int targetClientId)
 {
-    this->targetClientId = targetClientId;
+    this->targetClientId=targetClientId;
 }
 
 int SubtaskResultMsg::getSourceClientId() const
@@ -776,7 +776,7 @@ int SubtaskResultMsg::getSourceClientId() const
 
 void SubtaskResultMsg::setSourceClientId(int sourceClientId)
 {
-    this->sourceClientId = sourceClientId;
+    this->sourceClientId=sourceClientId;
 }
 
 int SubtaskResultMsg::getMaxValue() const
@@ -786,7 +786,7 @@ int SubtaskResultMsg::getMaxValue() const
 
 void SubtaskResultMsg::setMaxValue(int maxValue)
 {
-    this->maxValue = maxValue;
+    this->maxValue=maxValue;
 }
 
 int SubtaskResultMsg::getHopCount() const
@@ -796,7 +796,7 @@ int SubtaskResultMsg::getHopCount() const
 
 void SubtaskResultMsg::setHopCount(int hopCount)
 {
-    this->hopCount = hopCount;
+    this->hopCount=hopCount;
 }
 
 class SubtaskResultMsgDescriptor : public omnetpp::cClassDescriptor
@@ -843,7 +843,7 @@ Register_ClassDescriptor(SubtaskResultMsgDescriptor)
 
 SubtaskResultMsgDescriptor::SubtaskResultMsgDescriptor() : omnetpp::cClassDescriptor(omnetpp::opp_typename(typeid(SubtaskResultMsg)), "omnetpp::cMessage")
 {
-    propertyNames = nullptr;
+    propertyNames=nullptr;
 }
 
 SubtaskResultMsgDescriptor::~SubtaskResultMsgDescriptor()
@@ -859,35 +859,35 @@ bool SubtaskResultMsgDescriptor::doesSupport(omnetpp::cObject *obj) const
 const char **SubtaskResultMsgDescriptor::getPropertyNames() const
 {
     if (!propertyNames) {
-        static const char *names[] = {  nullptr };
-        omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
-        const char **baseNames = base ? base->getPropertyNames() : nullptr;
-        propertyNames = mergeLists(baseNames, names);
+        static const char *names[]={  nullptr };
+        omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
+        const char **baseNames=base ? base->getPropertyNames() : nullptr;
+        propertyNames=mergeLists(baseNames, names);
     }
     return propertyNames;
 }
 
 const char *SubtaskResultMsgDescriptor::getProperty(const char *propertyName) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     return base ? base->getProperty(propertyName) : nullptr;
 }
 
 int SubtaskResultMsgDescriptor::getFieldCount() const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     return base ? 6+base->getFieldCount() : 6;
 }
 
 unsigned int SubtaskResultMsgDescriptor::getFieldTypeFlags(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldTypeFlags(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    static unsigned int fieldTypeFlags[] = {
+    static unsigned int fieldTypeFlags[]={
         FD_ISEDITABLE,    // FIELD_subtaskId
         FD_ISEDITABLE,    // FIELD_initiatorId
         FD_ISEDITABLE,    // FIELD_targetClientId
@@ -895,18 +895,18 @@ unsigned int SubtaskResultMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_maxValue
         FD_ISEDITABLE,    // FIELD_hopCount
     };
-    return (field >= 0 && field < 6) ? fieldTypeFlags[field] : 0;
+    return (field>=0&&field<6) ? fieldTypeFlags[field] : 0;
 }
 
 const char *SubtaskResultMsgDescriptor::getFieldName(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldName(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    static const char *fieldNames[] = {
+    static const char *fieldNames[]={
         "subtaskId",
         "initiatorId",
         "targetClientId",
@@ -914,31 +914,31 @@ const char *SubtaskResultMsgDescriptor::getFieldName(int field) const
         "maxValue",
         "hopCount",
     };
-    return (field >= 0 && field < 6) ? fieldNames[field] : nullptr;
+    return (field>=0&&field<6) ? fieldNames[field] : nullptr;
 }
 
 int SubtaskResultMsgDescriptor::findField(const char *fieldName) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
-    int baseIndex = base ? base->getFieldCount() : 0;
-    if (strcmp(fieldName, "subtaskId") == 0) return baseIndex + 0;
-    if (strcmp(fieldName, "initiatorId") == 0) return baseIndex + 1;
-    if (strcmp(fieldName, "targetClientId") == 0) return baseIndex + 2;
-    if (strcmp(fieldName, "sourceClientId") == 0) return baseIndex + 3;
-    if (strcmp(fieldName, "maxValue") == 0) return baseIndex + 4;
-    if (strcmp(fieldName, "hopCount") == 0) return baseIndex + 5;
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
+    int baseIndex=base ? base->getFieldCount() : 0;
+    if (strcmp(fieldName, "subtaskId")==0) return baseIndex + 0;
+    if (strcmp(fieldName, "initiatorId")==0) return baseIndex + 1;
+    if (strcmp(fieldName, "targetClientId")==0) return baseIndex + 2;
+    if (strcmp(fieldName, "sourceClientId")==0) return baseIndex + 3;
+    if (strcmp(fieldName, "maxValue")==0) return baseIndex + 4;
+    if (strcmp(fieldName, "hopCount")==0) return baseIndex + 5;
     return base ? base->findField(fieldName) : -1;
 }
 
 const char *SubtaskResultMsgDescriptor::getFieldTypeString(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldTypeString(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    static const char *fieldTypeStrings[] = {
+    static const char *fieldTypeStrings[]={
         "int",    // FIELD_subtaskId
         "int",    // FIELD_initiatorId
         "int",    // FIELD_targetClientId
@@ -946,16 +946,16 @@ const char *SubtaskResultMsgDescriptor::getFieldTypeString(int field) const
         "int",    // FIELD_maxValue
         "int",    // FIELD_hopCount
     };
-    return (field >= 0 && field < 6) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0&&field<6) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **SubtaskResultMsgDescriptor::getFieldPropertyNames(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldPropertyNames(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
     switch (field) {
         default: return nullptr;
@@ -964,11 +964,11 @@ const char **SubtaskResultMsgDescriptor::getFieldPropertyNames(int field) const
 
 const char *SubtaskResultMsgDescriptor::getFieldProperty(int field, const char *propertyName) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldProperty(field, propertyName);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
     switch (field) {
         default: return nullptr;
@@ -977,13 +977,13 @@ const char *SubtaskResultMsgDescriptor::getFieldProperty(int field, const char *
 
 int SubtaskResultMsgDescriptor::getFieldArraySize(omnetpp::any_ptr object, int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldArraySize(object, field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskResultMsg *pp = omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
+    SubtaskResultMsg *pp=omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
     switch (field) {
         default: return 0;
     }
@@ -991,15 +991,15 @@ int SubtaskResultMsgDescriptor::getFieldArraySize(omnetpp::any_ptr object, int f
 
 void SubtaskResultMsgDescriptor::setFieldArraySize(omnetpp::any_ptr object, int field, int size) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldArraySize(object, field, size);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskResultMsg *pp = omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
+    SubtaskResultMsg *pp=omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
     switch (field) {
         default: throw omnetpp::cRuntimeError("Cannot set array size of field %d of class 'SubtaskResultMsg'", field);
     }
@@ -1007,13 +1007,13 @@ void SubtaskResultMsgDescriptor::setFieldArraySize(omnetpp::any_ptr object, int 
 
 const char *SubtaskResultMsgDescriptor::getFieldDynamicTypeString(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldDynamicTypeString(object,field,i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskResultMsg *pp = omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
+    SubtaskResultMsg *pp=omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
     switch (field) {
         default: return nullptr;
     }
@@ -1021,13 +1021,13 @@ const char *SubtaskResultMsgDescriptor::getFieldDynamicTypeString(omnetpp::any_p
 
 std::string SubtaskResultMsgDescriptor::getFieldValueAsString(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldValueAsString(object,field,i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskResultMsg *pp = omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
+    SubtaskResultMsg *pp=omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
     switch (field) {
         case FIELD_subtaskId: return long2string(pp->getSubtaskId());
         case FIELD_initiatorId: return long2string(pp->getInitiatorId());
@@ -1041,15 +1041,15 @@ std::string SubtaskResultMsgDescriptor::getFieldValueAsString(omnetpp::any_ptr o
 
 void SubtaskResultMsgDescriptor::setFieldValueAsString(omnetpp::any_ptr object, int field, int i, const char *value) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldValueAsString(object, field, i, value);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskResultMsg *pp = omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
+    SubtaskResultMsg *pp=omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
     switch (field) {
         case FIELD_subtaskId: pp->setSubtaskId(string2long(value)); break;
         case FIELD_initiatorId: pp->setInitiatorId(string2long(value)); break;
@@ -1063,13 +1063,13 @@ void SubtaskResultMsgDescriptor::setFieldValueAsString(omnetpp::any_ptr object, 
 
 omnetpp::cValue SubtaskResultMsgDescriptor::getFieldValue(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldValue(object,field,i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskResultMsg *pp = omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
+    SubtaskResultMsg *pp=omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
     switch (field) {
         case FIELD_subtaskId: return pp->getSubtaskId();
         case FIELD_initiatorId: return pp->getInitiatorId();
@@ -1083,15 +1083,15 @@ omnetpp::cValue SubtaskResultMsgDescriptor::getFieldValue(omnetpp::any_ptr objec
 
 void SubtaskResultMsgDescriptor::setFieldValue(omnetpp::any_ptr object, int field, int i, const omnetpp::cValue& value) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldValue(object, field, i, value);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskResultMsg *pp = omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
+    SubtaskResultMsg *pp=omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
     switch (field) {
         case FIELD_subtaskId: pp->setSubtaskId(omnetpp::checked_int_cast<int>(value.intValue())); break;
         case FIELD_initiatorId: pp->setInitiatorId(omnetpp::checked_int_cast<int>(value.intValue())); break;
@@ -1105,11 +1105,11 @@ void SubtaskResultMsgDescriptor::setFieldValue(omnetpp::any_ptr object, int fiel
 
 const char *SubtaskResultMsgDescriptor::getFieldStructName(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldStructName(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
     switch (field) {
         default: return nullptr;
@@ -1118,13 +1118,13 @@ const char *SubtaskResultMsgDescriptor::getFieldStructName(int field) const
 
 omnetpp::any_ptr SubtaskResultMsgDescriptor::getFieldStructValuePointer(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldStructValuePointer(object, field, i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskResultMsg *pp = omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
+    SubtaskResultMsg *pp=omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
     switch (field) {
         default: return omnetpp::any_ptr(nullptr);
     }
@@ -1132,15 +1132,15 @@ omnetpp::any_ptr SubtaskResultMsgDescriptor::getFieldStructValuePointer(omnetpp:
 
 void SubtaskResultMsgDescriptor::setFieldStructValuePointer(omnetpp::any_ptr object, int field, int i, omnetpp::any_ptr ptr) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldStructValuePointer(object, field, i, ptr);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    SubtaskResultMsg *pp = omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
+    SubtaskResultMsg *pp=omnetpp::fromAnyPtr<SubtaskResultMsg>(object); (void)pp;
     switch (field) {
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'SubtaskResultMsg'", field);
     }
@@ -1163,7 +1163,7 @@ GossipMsg::~GossipMsg()
 
 GossipMsg& GossipMsg::operator=(const GossipMsg& other)
 {
-    if (this == &other) return *this;
+    if (this==&other) return *this;
     ::omnetpp::cMessage::operator=(other);
     copy(other);
     return *this;
@@ -1171,12 +1171,12 @@ GossipMsg& GossipMsg::operator=(const GossipMsg& other)
 
 void GossipMsg::copy(const GossipMsg& other)
 {
-    this->originClientId = other.originClientId;
-    this->timestamp = other.timestamp;
-    this->ipAddress = other.ipAddress;
-    this->msgContent = other.msgContent;
-    this->senderClientId = other.senderClientId;
-    this->msgHash = other.msgHash;
+    this->originClientId=other.originClientId;
+    this->timestamp=other.timestamp;
+    this->ipAddress=other.ipAddress;
+    this->msgContent=other.msgContent;
+    this->senderClientId=other.senderClientId;
+    this->msgHash=other.msgHash;
 }
 
 void GossipMsg::parsimPack(omnetpp::cCommBuffer *b) const
@@ -1208,7 +1208,7 @@ int GossipMsg::getOriginClientId() const
 
 void GossipMsg::setOriginClientId(int originClientId)
 {
-    this->originClientId = originClientId;
+    this->originClientId=originClientId;
 }
 
 const char * GossipMsg::getTimestamp() const
@@ -1218,7 +1218,7 @@ const char * GossipMsg::getTimestamp() const
 
 void GossipMsg::setTimestamp(const char * timestamp)
 {
-    this->timestamp = timestamp;
+    this->timestamp=timestamp;
 }
 
 const char * GossipMsg::getIpAddress() const
@@ -1228,7 +1228,7 @@ const char * GossipMsg::getIpAddress() const
 
 void GossipMsg::setIpAddress(const char * ipAddress)
 {
-    this->ipAddress = ipAddress;
+    this->ipAddress=ipAddress;
 }
 
 const char * GossipMsg::getMsgContent() const
@@ -1238,7 +1238,7 @@ const char * GossipMsg::getMsgContent() const
 
 void GossipMsg::setMsgContent(const char * msgContent)
 {
-    this->msgContent = msgContent;
+    this->msgContent=msgContent;
 }
 
 int GossipMsg::getSenderClientId() const
@@ -1248,7 +1248,7 @@ int GossipMsg::getSenderClientId() const
 
 void GossipMsg::setSenderClientId(int senderClientId)
 {
-    this->senderClientId = senderClientId;
+    this->senderClientId=senderClientId;
 }
 
 const char * GossipMsg::getMsgHash() const
@@ -1258,7 +1258,7 @@ const char * GossipMsg::getMsgHash() const
 
 void GossipMsg::setMsgHash(const char * msgHash)
 {
-    this->msgHash = msgHash;
+    this->msgHash=msgHash;
 }
 
 class GossipMsgDescriptor : public omnetpp::cClassDescriptor
@@ -1305,7 +1305,7 @@ Register_ClassDescriptor(GossipMsgDescriptor)
 
 GossipMsgDescriptor::GossipMsgDescriptor() : omnetpp::cClassDescriptor(omnetpp::opp_typename(typeid(GossipMsg)), "omnetpp::cMessage")
 {
-    propertyNames = nullptr;
+    propertyNames=nullptr;
 }
 
 GossipMsgDescriptor::~GossipMsgDescriptor()
@@ -1321,35 +1321,35 @@ bool GossipMsgDescriptor::doesSupport(omnetpp::cObject *obj) const
 const char **GossipMsgDescriptor::getPropertyNames() const
 {
     if (!propertyNames) {
-        static const char *names[] = {  nullptr };
-        omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
-        const char **baseNames = base ? base->getPropertyNames() : nullptr;
-        propertyNames = mergeLists(baseNames, names);
+        static const char *names[]={  nullptr };
+        omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
+        const char **baseNames=base ? base->getPropertyNames() : nullptr;
+        propertyNames=mergeLists(baseNames, names);
     }
     return propertyNames;
 }
 
 const char *GossipMsgDescriptor::getProperty(const char *propertyName) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     return base ? base->getProperty(propertyName) : nullptr;
 }
 
 int GossipMsgDescriptor::getFieldCount() const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     return base ? 6+base->getFieldCount() : 6;
 }
 
 unsigned int GossipMsgDescriptor::getFieldTypeFlags(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldTypeFlags(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    static unsigned int fieldTypeFlags[] = {
+    static unsigned int fieldTypeFlags[]={
         FD_ISEDITABLE,    // FIELD_originClientId
         FD_ISEDITABLE,    // FIELD_timestamp
         FD_ISEDITABLE,    // FIELD_ipAddress
@@ -1357,18 +1357,18 @@ unsigned int GossipMsgDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_senderClientId
         FD_ISEDITABLE,    // FIELD_msgHash
     };
-    return (field >= 0 && field < 6) ? fieldTypeFlags[field] : 0;
+    return (field>=0&&field<6) ? fieldTypeFlags[field] : 0;
 }
 
 const char *GossipMsgDescriptor::getFieldName(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldName(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    static const char *fieldNames[] = {
+    static const char *fieldNames[]={
         "originClientId",
         "timestamp",
         "ipAddress",
@@ -1376,31 +1376,31 @@ const char *GossipMsgDescriptor::getFieldName(int field) const
         "senderClientId",
         "msgHash",
     };
-    return (field >= 0 && field < 6) ? fieldNames[field] : nullptr;
+    return (field>=0&&field<6) ? fieldNames[field] : nullptr;
 }
 
 int GossipMsgDescriptor::findField(const char *fieldName) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
-    int baseIndex = base ? base->getFieldCount() : 0;
-    if (strcmp(fieldName, "originClientId") == 0) return baseIndex + 0;
-    if (strcmp(fieldName, "timestamp") == 0) return baseIndex + 1;
-    if (strcmp(fieldName, "ipAddress") == 0) return baseIndex + 2;
-    if (strcmp(fieldName, "msgContent") == 0) return baseIndex + 3;
-    if (strcmp(fieldName, "senderClientId") == 0) return baseIndex + 4;
-    if (strcmp(fieldName, "msgHash") == 0) return baseIndex + 5;
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
+    int baseIndex=base ? base->getFieldCount() : 0;
+    if (strcmp(fieldName, "originClientId")==0) return baseIndex + 0;
+    if (strcmp(fieldName, "timestamp")==0) return baseIndex + 1;
+    if (strcmp(fieldName, "ipAddress")==0) return baseIndex + 2;
+    if (strcmp(fieldName, "msgContent")==0) return baseIndex + 3;
+    if (strcmp(fieldName, "senderClientId")==0) return baseIndex + 4;
+    if (strcmp(fieldName, "msgHash")==0) return baseIndex + 5;
     return base ? base->findField(fieldName) : -1;
 }
 
 const char *GossipMsgDescriptor::getFieldTypeString(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldTypeString(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    static const char *fieldTypeStrings[] = {
+    static const char *fieldTypeStrings[]={
         "int",    // FIELD_originClientId
         "string",    // FIELD_timestamp
         "string",    // FIELD_ipAddress
@@ -1408,16 +1408,16 @@ const char *GossipMsgDescriptor::getFieldTypeString(int field) const
         "int",    // FIELD_senderClientId
         "string",    // FIELD_msgHash
     };
-    return (field >= 0 && field < 6) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0&&field<6) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **GossipMsgDescriptor::getFieldPropertyNames(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldPropertyNames(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
     switch (field) {
         default: return nullptr;
@@ -1426,11 +1426,11 @@ const char **GossipMsgDescriptor::getFieldPropertyNames(int field) const
 
 const char *GossipMsgDescriptor::getFieldProperty(int field, const char *propertyName) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldProperty(field, propertyName);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
     switch (field) {
         default: return nullptr;
@@ -1439,13 +1439,13 @@ const char *GossipMsgDescriptor::getFieldProperty(int field, const char *propert
 
 int GossipMsgDescriptor::getFieldArraySize(omnetpp::any_ptr object, int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldArraySize(object, field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    GossipMsg *pp = omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
+    GossipMsg *pp=omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
     switch (field) {
         default: return 0;
     }
@@ -1453,15 +1453,15 @@ int GossipMsgDescriptor::getFieldArraySize(omnetpp::any_ptr object, int field) c
 
 void GossipMsgDescriptor::setFieldArraySize(omnetpp::any_ptr object, int field, int size) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldArraySize(object, field, size);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    GossipMsg *pp = omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
+    GossipMsg *pp=omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
     switch (field) {
         default: throw omnetpp::cRuntimeError("Cannot set array size of field %d of class 'GossipMsg'", field);
     }
@@ -1469,13 +1469,13 @@ void GossipMsgDescriptor::setFieldArraySize(omnetpp::any_ptr object, int field, 
 
 const char *GossipMsgDescriptor::getFieldDynamicTypeString(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldDynamicTypeString(object,field,i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    GossipMsg *pp = omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
+    GossipMsg *pp=omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
     switch (field) {
         default: return nullptr;
     }
@@ -1483,13 +1483,13 @@ const char *GossipMsgDescriptor::getFieldDynamicTypeString(omnetpp::any_ptr obje
 
 std::string GossipMsgDescriptor::getFieldValueAsString(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldValueAsString(object,field,i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    GossipMsg *pp = omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
+    GossipMsg *pp=omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
     switch (field) {
         case FIELD_originClientId: return long2string(pp->getOriginClientId());
         case FIELD_timestamp: return oppstring2string(pp->getTimestamp());
@@ -1503,15 +1503,15 @@ std::string GossipMsgDescriptor::getFieldValueAsString(omnetpp::any_ptr object, 
 
 void GossipMsgDescriptor::setFieldValueAsString(omnetpp::any_ptr object, int field, int i, const char *value) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldValueAsString(object, field, i, value);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    GossipMsg *pp = omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
+    GossipMsg *pp=omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
     switch (field) {
         case FIELD_originClientId: pp->setOriginClientId(string2long(value)); break;
         case FIELD_timestamp: pp->setTimestamp((value)); break;
@@ -1525,13 +1525,13 @@ void GossipMsgDescriptor::setFieldValueAsString(omnetpp::any_ptr object, int fie
 
 omnetpp::cValue GossipMsgDescriptor::getFieldValue(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldValue(object,field,i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    GossipMsg *pp = omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
+    GossipMsg *pp=omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
     switch (field) {
         case FIELD_originClientId: return pp->getOriginClientId();
         case FIELD_timestamp: return pp->getTimestamp();
@@ -1545,15 +1545,15 @@ omnetpp::cValue GossipMsgDescriptor::getFieldValue(omnetpp::any_ptr object, int 
 
 void GossipMsgDescriptor::setFieldValue(omnetpp::any_ptr object, int field, int i, const omnetpp::cValue& value) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldValue(object, field, i, value);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    GossipMsg *pp = omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
+    GossipMsg *pp=omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
     switch (field) {
         case FIELD_originClientId: pp->setOriginClientId(omnetpp::checked_int_cast<int>(value.intValue())); break;
         case FIELD_timestamp: pp->setTimestamp(value.stringValue()); break;
@@ -1567,11 +1567,11 @@ void GossipMsgDescriptor::setFieldValue(omnetpp::any_ptr object, int field, int 
 
 const char *GossipMsgDescriptor::getFieldStructName(int field) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldStructName(field);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
     switch (field) {
         default: return nullptr;
@@ -1580,13 +1580,13 @@ const char *GossipMsgDescriptor::getFieldStructName(int field) const
 
 omnetpp::any_ptr GossipMsgDescriptor::getFieldStructValuePointer(omnetpp::any_ptr object, int field, int i) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount())
+        if (field<base->getFieldCount())
             return base->getFieldStructValuePointer(object, field, i);
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    GossipMsg *pp = omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
+    GossipMsg *pp=omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
     switch (field) {
         default: return omnetpp::any_ptr(nullptr);
     }
@@ -1594,15 +1594,15 @@ omnetpp::any_ptr GossipMsgDescriptor::getFieldStructValuePointer(omnetpp::any_pt
 
 void GossipMsgDescriptor::setFieldStructValuePointer(omnetpp::any_ptr object, int field, int i, omnetpp::any_ptr ptr) const
 {
-    omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
+    omnetpp::cClassDescriptor *base=getBaseClassDescriptor();
     if (base) {
-        if (field < base->getFieldCount()){
+        if (field<base->getFieldCount()){
             base->setFieldStructValuePointer(object, field, i, ptr);
             return;
         }
-        field -= base->getFieldCount();
+        field -=base->getFieldCount();
     }
-    GossipMsg *pp = omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
+    GossipMsg *pp=omnetpp::fromAnyPtr<GossipMsg>(object); (void)pp;
     switch (field) {
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'GossipMsg'", field);
     }
@@ -1611,4 +1611,3 @@ void GossipMsgDescriptor::setFieldStructValuePointer(omnetpp::any_ptr object, in
 namespace omnetpp {
 
 }  // namespace omnetpp
-

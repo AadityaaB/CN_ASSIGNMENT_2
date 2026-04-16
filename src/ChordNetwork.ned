@@ -28,8 +28,8 @@ network ChordNetwork
         string configFile;
     submodules:
         manager: NetworkManager;
-        
-        // This is the magic line! We declare an empty vector of clients 
+
+        // This is the magic line! We declare an empty vector of clients
         // so our C++ code can dynamically resize and populate it based on topo.txt
-        client[0]: ClientNode; 
+        client[0]: ClientNode;
 }

@@ -6,48 +6,48 @@
 #
 
 # Name of target to be created (-o option)
-TARGET_DIR = .
-TARGET_NAME = chordp2p$(D)
-TARGET = $(TARGET_NAME)$(EXE_SUFFIX)
-TARGET_FILES = $(TARGET_DIR)/$(TARGET)
+TARGET_DIR=.
+TARGET_NAME=chordp2p$(D)
+TARGET=$(TARGET_NAME)$(EXE_SUFFIX)
+TARGET_FILES=$(TARGET_DIR)/$(TARGET)
 
 # User interface (uncomment one) (-u option)
-USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(QTENV_LIBS) $(CMDENV_LIBS)
-#USERIF_LIBS = $(CMDENV_LIBS)
-#USERIF_LIBS = $(QTENV_LIBS)
+USERIF_LIBS=$(ALL_ENV_LIBS) # that is, $(QTENV_LIBS) $(CMDENV_LIBS)
+#USERIF_LIBS=$(CMDENV_LIBS)
+#USERIF_LIBS=$(QTENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH =
+INCLUDE_PATH=
 
 # Additional object and library files to link with
-EXTRA_OBJS =
+EXTRA_OBJS=
 
 # Additional libraries (-L, -l options)
-LIBS =
+LIBS=
 
 # Output directory
-PROJECT_OUTPUT_DIR = out
-PROJECTRELATIVE_PATH =
-O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
+PROJECT_OUTPUT_DIR=out
+PROJECTRELATIVE_PATH=
+O=$(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/ClientNode.o $O/NetworkManager.o $O/messages_m.o
+OBJS=$O/ClientNode.o $O/NetworkManager.o $O/messages_m.o
 
 # Message files
-MSGFILES = \
+MSGFILES=\
     messages.msg
 
 # SM files
-SMFILES =
+SMFILES=
 
 #------------------------------------------------------------------------------
 
 # Pull in OMNeT++ configuration (Makefile.inc)
 
 ifneq ("$(OMNETPP_CONFIGFILE)","")
-CONFIGFILE = $(OMNETPP_CONFIGFILE)
+CONFIGFILE=$(OMNETPP_CONFIGFILE)
 else
-CONFIGFILE = $(shell opp_configfilepath)
+CONFIGFILE=$(shell opp_configfilepath)
 endif
 
 ifeq ("$(wildcard $(CONFIGFILE))","")
@@ -57,17 +57,17 @@ endif
 include $(CONFIGFILE)
 
 # Simulation kernel and user interface libraries
-OMNETPP_LIBS = $(OPPMAIN_LIB) $(USERIF_LIBS) $(KERNEL_LIBS) $(SYS_LIBS)
+OMNETPP_LIBS=$(OPPMAIN_LIB) $(USERIF_LIBS) $(KERNEL_LIBS) $(SYS_LIBS)
 
-COPTS = $(CFLAGS) $(IMPORT_DEFINES)  $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
-MSGCOPTS = $(INCLUDE_PATH)
-SMCOPTS =
+COPTS=$(CFLAGS) $(IMPORT_DEFINES)  $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
+MSGCOPTS=$(INCLUDE_PATH)
+SMCOPTS=
 
 # we want to recompile everything if COPTS changes,
 # so we store COPTS into $COPTS_FILE (if COPTS has changed since last build)
 # and make the object files depend on it
-COPTS_FILE = $O/.last-copts
-ifneq ("$(COPTS)","$(shell cat $(COPTS_FILE) 2>/dev/null || echo '')")
+COPTS_FILE=$O/.last-copts
+ifneq ("$(COPTS)","$(shell cat $(COPTS_FILE) 2>/dev/null||echo '')")
   $(shell $(MKPATH) "$O")
   $(file >$(COPTS_FILE),$(COPTS))
 endif

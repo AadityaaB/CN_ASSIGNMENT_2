@@ -31,26 +31,26 @@ class GossipMsg;
  *     int targetClientId;     // Destination client (subtaskId % N)
  *     int sourceClientId;     // Last forwarding client (for routing)
  *     int elements[];         // Dynamic array of elements in this subtask
- *     int hopCount = 0;       // Number of hops taken so far
+ *     int hopCount=0;       // Number of hops taken so far
  * }
  * </pre>
  */
 class SubtaskMsg : public ::omnetpp::cMessage
 {
   protected:
-    int subtaskId = 0;
-    int initiatorId = 0;
-    int targetClientId = 0;
-    int sourceClientId = 0;
-    int *elements = nullptr;
-    size_t elements_arraysize = 0;
-    int hopCount = 0;
+    int subtaskId=0;
+    int initiatorId=0;
+    int targetClientId=0;
+    int sourceClientId=0;
+    int *elements=nullptr;
+    size_t elements_arraysize=0;
+    int hopCount=0;
 
   private:
     void copy(const SubtaskMsg& other);
 
   protected:
-    bool operator==(const SubtaskMsg&) = delete;
+    bool operator==(const SubtaskMsg&)=delete;
 
   public:
     SubtaskMsg(const char *name=nullptr, short kind=0);
@@ -98,28 +98,28 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, SubtaskMsg& obj) {obj.par
  * {
  *     int subtaskId;          // Corresponding subtask ID
  *     int initiatorId;        // Original initiator (for identification)
- *     int targetClientId;     // Destination (= initiatorId, routed back)
+ *     int targetClientId;     // Destination (=initiatorId, routed back)
  *     int sourceClientId;     // Last forwarding client
  *     int maxValue;           // Computed maximum of the sub-array
- *     int hopCount = 0;       // Number of hops taken so far
+ *     int hopCount=0;       // Number of hops taken so far
  * }
  * </pre>
  */
 class SubtaskResultMsg : public ::omnetpp::cMessage
 {
   protected:
-    int subtaskId = 0;
-    int initiatorId = 0;
-    int targetClientId = 0;
-    int sourceClientId = 0;
-    int maxValue = 0;
-    int hopCount = 0;
+    int subtaskId=0;
+    int initiatorId=0;
+    int targetClientId=0;
+    int sourceClientId=0;
+    int maxValue=0;
+    int hopCount=0;
 
   private:
     void copy(const SubtaskResultMsg& other);
 
   protected:
-    bool operator==(const SubtaskResultMsg&) = delete;
+    bool operator==(const SubtaskResultMsg&)=delete;
 
   public:
     SubtaskResultMsg(const char *name=nullptr, short kind=0);
@@ -171,18 +171,18 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, SubtaskResultMsg& obj) {o
 class GossipMsg : public ::omnetpp::cMessage
 {
   protected:
-    int originClientId = 0;
+    int originClientId=0;
     omnetpp::opp_string timestamp;
     omnetpp::opp_string ipAddress;
     omnetpp::opp_string msgContent;
-    int senderClientId = 0;
+    int senderClientId=0;
     omnetpp::opp_string msgHash;
 
   private:
     void copy(const GossipMsg& other);
 
   protected:
-    bool operator==(const GossipMsg&) = delete;
+    bool operator==(const GossipMsg&)=delete;
 
   public:
     GossipMsg(const char *name=nullptr, short kind=0);
@@ -225,4 +225,3 @@ template<> inline GossipMsg *fromAnyPtr(any_ptr ptr) { return check_and_cast<Gos
 }  // namespace omnetpp
 
 #endif // ifndef __MESSAGES_M_H
-

@@ -300,4 +300,3 @@ par ChordNetwork.client[7] configFile "\"config.txt\""
 par ChordNetwork typename "\"chordp2p.ChordNetwork\""
 par ChordNetwork topoFile "\"topo.txt\""
 par ChordNetwork configFile "\"config.txt\""
-

@@ -1,9 +1,9 @@
-// ============================================================
+//============================================================
 // NetworkManager.h
 // Reads topo.txt, dynamically creates ClientNode modules,
 // computes Chord finger table edges, and establishes all
 // network connections (ring + finger table shortcuts).
-// ============================================================
+//============================================================
 
 #ifndef NETWORKMANAGER_H_
 #define NETWORKMANAGER_H_

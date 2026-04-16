@@ -1,12 +1,12 @@
 # Chord P2P Network - Task Configuration
-# k = total number of elements in the array
-# x = number of subtasks (must satisfy: x > N and k/x >= 2)
-# array = comma-separated list of k integer values
+# k=total number of elements in the array
+# x=number of subtasks (must satisfy: x>N and k/x>=2)
+# array=comma-separated list of k integer values
 #
 # Example: With N=8 clients, k=32 elements, x=12 subtasks
-#   -> Each subtask has ~2-3 elements (32/12 ≈ 2.67, satisfying k/x >= 2)
-#   -> subtask i goes to client i%8 (12 > 8, so all clients get work)
-#   -> Expected result: Maximum = 99
+#   -> Each subtask has ~2-3 elements (32/12 ≈ 2.67, satisfying k/x>=2)
+#   -> subtask i goes to client i%8 (12>8, so all clients get work)
+#   -> Expected result: Maximum=99
 k=32
 x=12
 array=45,12,78,3,56,89,23,67,34,90,11,44,55,66,77,88,99,21,32,43,54,65,76,87,98,10,20,30,40,50,60,70

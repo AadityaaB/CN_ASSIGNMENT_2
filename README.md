@@ -27,7 +27,7 @@ Each client independently executes a distributed computation task — **finding 
 
 - **Ring Connections**: Each client is connected to its successor and predecessor (from `topo.txt`)
 - **Finger Table Connections**: Additional Chord shortcuts for O(log N) routing
-  - `finger[i] = (clientId + 2^i) % N` for `i = 0, 1, ..., ⌈log₂(N)⌉ - 1`
+  - `finger[i]=(clientId + 2^i) % N` for `i=0, 1, ..., ⌈log₂(N)⌉ - 1`
 
 ### Chord Finger Table Example (N=8)
 
@@ -134,7 +134,7 @@ array=<comma_separated_values>
 ```
 
 - `k`: Total number of elements in the array
-- `x`: Number of subtasks (must satisfy `x > N` and `k/x >= 2`)
+- `x`: Number of subtasks (must satisfy `x>N` and `k/x>=2`)
 - `array`: Comma-separated list of `k` integers
 
 ---
@@ -232,16 +232,16 @@ Subtasks (x): 12 | Clients (N): 8
 
 Client 3: Received subtask 3 from initiator 0 | Elements: [67, 34, 90] | Max: 90 | Hops: 1
 
-Client 0: Result for subtask 3 -> max = 90 (hops: 1) [4/12]
+Client 0: Result for subtask 3 -> max=90 (hops: 1) [4/12]
 
 ============================================================
 Client 0: ALL SUBTASK RESULTS RECEIVED
 ============================================================
-  Subtask 0: max = 78
-  Subtask 1: max = 89
+  Subtask 0: max=78
+  Subtask 1: max=89
   ...
 ------------------------------------------------------------
-  >>> CONSOLIDATED RESULT: Maximum element = 99 <<<
+  >>> CONSOLIDATED RESULT: Maximum element=99 <<<
 ============================================================
 
 Client 0: GOSSIP GENERATED -> "5.5:10.0.0.0:0"
@@ -263,7 +263,7 @@ Received gossip from all 8 clients. Terminating.
    - List ring edges: `0 1`, `1 2`, ..., `(N-1) 0`
 
 2. **Edit `simulations/config.txt`** (if needed):
-   - Ensure `x > N` and `k/x >= 2`
+   - Ensure `x>N` and `k/x>=2`
 
 3. **Rebuild and re-run** — no code changes needed!
 

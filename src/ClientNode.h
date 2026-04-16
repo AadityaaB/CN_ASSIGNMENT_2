@@ -1,9 +1,9 @@
-// ============================================================
+//============================================================
 // ClientNode.h
 // Header for the ClientNode module - a peer in the Chord P2P
 // network that can initiate tasks, compute subtask results,
 // and participate in gossip-based termination.
-// ============================================================
+//============================================================
 
 #ifndef CLIENTNODE_H_
 #define CLIENTNODE_H_
@@ -34,7 +34,7 @@ class ClientNode : public cSimpleModule
     int numClients;
 
     // ---- Chord Routing ----
-    std::vector<int> fingerTable;           // finger[i] = (clientId + 2^i) % N
+    std::vector<int> fingerTable;           // finger[i]=(clientId + 2^i) % N
     std::map<int, int> neighborToGate;      // neighborClientId -> output gate index
     int successor;
     int predecessor;
