@@ -1,10 +1,3 @@
-# Chord P2P Network - Topology File
-# Line 1: N (number of client nodes)
-# Remaining lines: edges (node_a node_b) forming a ring
-# Finger table connections are computed automatically by the program.
-#
-# To change the network size, update N and the ring edges below.
-# Ensure the edges form a connected ring: 0-1-2-...(N-1)-0
 8
 0 1
 1 2

@@ -138,54 +138,70 @@ array=<comma_separated_values>
 - `array`: Comma-separated list of `k` integers
 
 ---
-
 ## Build & Run Instructions
 
-### Option A: Using OMNeT++ IDE (Recommended)
+### Option A: Native macOS / Linux Terminal (High-Performance)
+This is the recommended approach for running the simulation natively on UNIX-based systems (like macOS or Linux), allowing you to leverage multi core compilation.
 
-1. **Open OMNeT++ 6.3.0 IDE**
-2. **Import the project**:
-   - `File` → `Open Projects from File System...`
-   - Select the `CN_ASSIGNMENT_2` directory
-   - Click `Finish`
-3. **Build the project**:
-   - Right-click the project → `Build Project` (or press `Ctrl+B`)
-   - The build system automatically processes `.msg` files and compiles all C++ code
-4. **Run the simulation**:
-   - Open `simulations/omnetpp.ini`
-   - Click `Run` → `Run As` → `OMNeT++ Simulation`
-   - Choose `Cmdenv` for command-line output or `Qtenv` for the GUI
+1. **Initialize the OMNeT++ Environment**:
+   Open your terminal and navigate to your OMNeT++ installation directory to source the environment variables.
+```bash
+   cd /path/to/omnetpp-6.3.0
+   source setenv
+```
 
-### Option B: Using Command Line (MinGW Shell)
+2. **Navigate to the Source Directory**:
+```bash
+   cd /path/to/CN_ASSIGNMENT_2/src
+```
 
-1. **Open the OMNeT++ MinGW terminal** (from the OMNeT++ installation)
-
-2. **Navigate to the project directory**:
-   ```bash
-   cd /path/to/CN_ASSIGNMENT_2
-   ```
-
-3. **Generate the Makefile**:
-   ```bash
-   cd src
+3. **Generate the Makefile and Compile**: Use `opp_makemake` to link the files, and compile using multiple cores (e.g., `-j8` for an 8-core processor like Apple Silicon).
+```bash
    opp_makemake -f --deep -o chordp2p
-   ```
+   make -j8
+```
 
-4. **Build**:
-   ```bash
-   make
-   ```
-
-5. **Run the simulation**:
-   ```bash
+4. **Run the Simulation**: Navigate to the simulations folder and execute the binary in command-line mode.
+```bash
    cd ../simulations
    ../src/chordp2p -f omnetpp.ini -u Cmdenv -n ../src
-   ```
+```
 
-   For GUI mode:
-   ```bash
-   ../src/chordp2p -f omnetpp.ini -n ../src
-   ```
+---
+
+### Option B: Using OMNeT++ IDE (GUI Method)
+
+1. Open OMNeT++ 6.3.0 IDE.
+2. Import the project:
+   - `File` → `Open Projects from File System...`
+   - Select the `CN_ASSIGNMENT_2` directory and click `Finish`.
+3. Build the project:
+   - Right-click the project → `Build Project` (or press `Ctrl+B`).
+   - The build system automatically processes `.msg` files and compiles all C++ code.
+4. Run the simulation:
+   - Open `simulations/omnetpp.ini`.
+   - Click `Run` → `Run As` → `OMNeT++ Simulation`.
+   - Choose `Cmdenv` for command-line output or `Qtenv` for the visual GUI.
+
+---
+
+### Option C: Using Command Line (Windows MinGW Shell)
+
+1. Open the OMNeT++ MinGW terminal (from the OMNeT++ installation folder).
+2. Navigate to the project directory:
+```bash
+   cd /path/to/CN_ASSIGNMENT_2/src
+```
+3. Generate the Makefile and Build:
+```bash
+   opp_makemake -f --deep -o chordp2p
+   make
+```
+4. Run the simulation:
+```bash
+   cd ../simulations
+   ../src/chordp2p -f omnetpp.ini -u Cmdenv -n ../src
+```
 
 ---
 

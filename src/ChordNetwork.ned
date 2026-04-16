@@ -1,50 +1,35 @@
-// ============================================================
-// ChordNetwork.ned
-// Defines all module types and the top-level network for the
-// Chord-based P2P distributed computation simulation.
-// ============================================================
-
 package chordp2p;
 
-//
-// ClientNode: A peer in the Chord ring that can initiate tasks,
-// process subtasks, return results, and participate in gossip.
-//
+// 1. Define the blueprint for a ClientNode
 simple ClientNode
 {
     parameters:
-        int clientId = default(-1);
-        int numClients = default(0);
-        string configFile = default("");
+        int clientId;
+        int numClients;
+        string configFile;
         @display("i=device/pc");
     gates:
         input in[];
         output out[];
 }
 
-//
-// NetworkManager: Reads the topology file, dynamically creates
-// ClientNode modules, computes Chord finger table connections,
-// and wires up the network.
-//
+// 2. Define the blueprint for the NetworkManager
 simple NetworkManager
 {
     parameters:
-        @display("i=block/control");
+        @display("i=block/cogwheel");
 }
 
-//
-// ChordNetwork: The top-level simulation network.
-// Only contains the NetworkManager; client nodes are created
-// dynamically by the manager based on topo.txt.
-//
+// 3. Define the overall Network that holds them together
 network ChordNetwork
 {
     parameters:
-        string topoFile = default("topo.txt");
-        string configFile = default("config.txt");
-        @display("bgb=700,700");
+        string topoFile;
+        string configFile;
     submodules:
         manager: NetworkManager;
-    // Client nodes are created dynamically by NetworkManager
+        
+        // This is the magic line! We declare an empty vector of clients 
+        // so our C++ code can dynamically resize and populate it based on topo.txt
+        client[0]: ClientNode; 
 }
